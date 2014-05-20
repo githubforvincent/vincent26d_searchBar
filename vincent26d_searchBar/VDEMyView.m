@@ -122,7 +122,7 @@
 -(void) searchBarCancelButtonClicked:(UISearchBar *) searchBar {
 //--------------------------------------------------------------------------------------------------------
 	vdeLabeBoutonChoisi.text = @"Annulation choisi";
-	[vdeBarreDeRecherche resignFirstResponder];
+	[vdeBarreDeRecherche resignFirstResponder]; // to remove the keyboard
 	
 }
 
@@ -146,31 +146,33 @@
 - (void) setFromOrientation:(UIInterfaceOrientation) o {
 //--------------------------------------------------------------------------------------------------------
 
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-	
-	int vdeLargeurVue, vdeHauteurVue, vdeHauteurBarreDeRecherche ;
     
+
+	// rafraichissement de la frame en fonction de l'orientation
+	//--------------------------------------------------------------------------------------------------------
 	
+	CGRect screenRect = [[UIScreen mainScreen] bounds];
 	
     if (o == UIInterfaceOrientationLandscapeLeft || o==UIInterfaceOrientationLandscapeRight)
     {
 		self.frame = CGRectMake(screenRect.origin.x, screenRect.origin.y, screenRect.size.height, screenRect.size.width);
-
-    }else{
+    }else {
 		self.frame = CGRectMake(screenRect.origin.x, screenRect.origin.y, screenRect.size.width, screenRect.size.height);
-
     }
 	
+	// Calcul des dimensiuons
 	//--------------------------------------------------------------------------------------------------------
 
+	int vdeLargeurVue, vdeHauteurVue, vdeHauteurBarreDeRecherche ;
+    
 	vdeLargeurVue = [self bounds].size.width;
 	vdeHauteurVue = [self bounds].size.height;
+	
 	if (vdeBarreDeRecherche.showsScopeBar) {
 		vdeHauteurBarreDeRecherche = 80;
 	} else {
 		vdeHauteurBarreDeRecherche = 30;
 	}
-
 
 	int vdeLargeurBarreDeReherche		= vdeLargeurVue;
     int vdeXBarreDeReherche				= 0;
@@ -188,12 +190,20 @@
     // placement des subviews
     //--------------------------------------------------------------------------------------------------------
     
-    [vdeBarreDeRecherche		setFrame:CGRectMake(vdeXBarreDeReherche, vdeYBarreDeReherche, vdeLargeurBarreDeReherche, vdeHauteurBarreDeRecherche)];
-	NSLog(@"%d", vdeHauteurBarreDeRecherche);
+    [vdeBarreDeRecherche		setFrame:CGRectMake(vdeXBarreDeReherche,
+													vdeYBarreDeReherche,
+													vdeLargeurBarreDeReherche,
+													vdeHauteurBarreDeRecherche)];
     
-    [vdeBoutonAffichageScope	setFrame:CGRectMake(vdeXBoutonAffichageScope, vdeYBoutonAffichageScope, vdeLargeurBoutonAffichageScope, 30)];
+    [vdeBoutonAffichageScope	setFrame:CGRectMake(vdeXBoutonAffichageScope,
+													vdeYBoutonAffichageScope,
+													vdeLargeurBoutonAffichageScope,
+													30)];
 	
-	[vdeLabeBoutonChoisi	    setFrame:CGRectMake(vdeXLabelBoutonChoisi, vdeYLabelBoutonChoisi, vdeLargeurLabelBoutonChoisi, 30)];
+	[vdeLabeBoutonChoisi	    setFrame:CGRectMake(vdeXLabelBoutonChoisi,
+													vdeYLabelBoutonChoisi,
+													vdeLargeurLabelBoutonChoisi,
+													30)];
     
     
 }
