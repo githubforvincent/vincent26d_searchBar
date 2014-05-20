@@ -18,7 +18,6 @@
 //--------------------------------------------------------------------------------------------------------
 
 	_vdeHauteurScopeBar = vdeHauteurScopeBar;
-	NSLog(@"test 3");
 	[self vdeSetFromOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
 }
 
@@ -109,10 +108,8 @@
 	
 	if (vdeBarreDeRecherche.showsScopeBar) {
 		vdeHauteurBarreDeRecherche = 80;
-		NSLog(@"test 80");
 	} else {
 		vdeHauteurBarreDeRecherche = 30;
-		NSLog(@"test 30");
 	}
 	int vdeLargeurBarreDeReherche		= vdeLargeurVue;
     int vdeXBarreDeReherche				= 0;
