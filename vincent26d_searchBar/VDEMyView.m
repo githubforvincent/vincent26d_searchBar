@@ -24,9 +24,9 @@
     
     //configuration subview du fond
     //--------------------------------------------------------------------------------------------------------
-    vdeImageEspace = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"image2048_2048.png"]];
-    vdeImageEspace = [[UIImageView alloc] init];
-    [self addSubview:vdeImageEspace];
+    //vdeImageEspace = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"image2048_2048.png"]];
+    //vdeImageEspace = [[UIImageView alloc] init];
+    //[self addSubview:vdeImageEspace];
 	
     
     //configuration barre de recherche
@@ -50,6 +50,7 @@
     //--------------------------------------------------------------------------------------------------------
 	vdeBoutonAffichageScope = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 	[vdeBoutonAffichageScope setTitle:@"Toggle la scopeBar" forState:UIControlStateNormal];
+	[vdeBoutonAffichageScope setBackgroundColor:[UIColor lightGrayColor]];
 	[vdeBoutonAffichageScope addTarget:self action:@selector(vdeActionVisualisationScopeBar ) forControlEvents:UIControlEventTouchDown];
 	[self addSubview:vdeBoutonAffichageScope];
 	
@@ -81,6 +82,76 @@
 	[self setFromOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
 
 }
+
+- (void) setFromOrientation:(UIInterfaceOrientation) o {
+	//--------------------------------------------------------------------------------------------------------
+	
+    
+	
+	// rafraichissement de la frame en fonction de l'orientation
+	//--------------------------------------------------------------------------------------------------------
+	
+	CGRect screenRect = [[UIScreen mainScreen] bounds];
+	
+    if (o == UIInterfaceOrientationLandscapeLeft || o==UIInterfaceOrientationLandscapeRight)
+    {
+		self.frame = CGRectMake(screenRect.origin.x, screenRect.origin.y, screenRect.size.height, screenRect.size.width);
+    }else {
+		self.frame = CGRectMake(screenRect.origin.x, screenRect.origin.y, screenRect.size.width, screenRect.size.height);
+    }
+	
+	// Calcul des dimensiuons
+	//--------------------------------------------------------------------------------------------------------
+	
+	int vdeLargeurVue, vdeHauteurVue, vdeHauteurBarreDeRecherche ;
+    
+	vdeLargeurVue = [self bounds].size.width;
+	vdeHauteurVue = [self bounds].size.height;
+	
+	if (vdeBarreDeRecherche.showsScopeBar) {
+		vdeHauteurBarreDeRecherche = 80;
+	} else {
+		vdeHauteurBarreDeRecherche = 30;
+	}
+	
+	int vdeLargeurBarreDeReherche		= vdeLargeurVue;
+    int vdeXBarreDeReherche				= 0;
+    int vdeYBarreDeReherche				= 35;
+	
+    int vdeXLabelBoutonChoisi			= 0;
+    int vdeYLabelBoutonChoisi			= vdeHauteurVue/2;
+    int vdeLargeurLabelBoutonChoisi 	= vdeLargeurVue;
+	
+    int vdeXBoutonAffichageScope		= 0;
+    int vdeYBoutonAffichageScope		= vdeHauteurVue-100;
+    int vdeLargeurBoutonAffichageScope	= vdeLargeurVue;
+    
+    
+    // placement des subviews
+    //--------------------------------------------------------------------------------------------------------
+    
+    [vdeBarreDeRecherche		setFrame:CGRectMake(vdeXBarreDeReherche,
+													vdeYBarreDeReherche,
+													vdeLargeurBarreDeReherche,
+													vdeHauteurBarreDeRecherche)];
+    
+    [vdeBoutonAffichageScope	setFrame:CGRectMake(vdeXBoutonAffichageScope,
+													vdeYBoutonAffichageScope,
+													vdeLargeurBoutonAffichageScope,
+													30)];
+	
+	[vdeLabeBoutonChoisi	    setFrame:CGRectMake(vdeXLabelBoutonChoisi,
+													vdeYLabelBoutonChoisi,
+													vdeLargeurLabelBoutonChoisi,
+													30)];
+    
+    
+}
+
+//--------------------------------------------------------------------------------------------------------
+// LES DELEGATES DE SEARCHBAR
+//--------------------------------------------------------------------------------------------------------
+
 
 
 -(void) searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope {
@@ -143,70 +214,6 @@
 	return YES;
 }
 
-- (void) setFromOrientation:(UIInterfaceOrientation) o {
-//--------------------------------------------------------------------------------------------------------
-
-    
-
-	// rafraichissement de la frame en fonction de l'orientation
-	//--------------------------------------------------------------------------------------------------------
-	
-	CGRect screenRect = [[UIScreen mainScreen] bounds];
-	
-    if (o == UIInterfaceOrientationLandscapeLeft || o==UIInterfaceOrientationLandscapeRight)
-    {
-		self.frame = CGRectMake(screenRect.origin.x, screenRect.origin.y, screenRect.size.height, screenRect.size.width);
-    }else {
-		self.frame = CGRectMake(screenRect.origin.x, screenRect.origin.y, screenRect.size.width, screenRect.size.height);
-    }
-	
-	// Calcul des dimensiuons
-	//--------------------------------------------------------------------------------------------------------
-
-	int vdeLargeurVue, vdeHauteurVue, vdeHauteurBarreDeRecherche ;
-    
-	vdeLargeurVue = [self bounds].size.width;
-	vdeHauteurVue = [self bounds].size.height;
-	
-	if (vdeBarreDeRecherche.showsScopeBar) {
-		vdeHauteurBarreDeRecherche = 80;
-	} else {
-		vdeHauteurBarreDeRecherche = 30;
-	}
-
-	int vdeLargeurBarreDeReherche		= vdeLargeurVue;
-    int vdeXBarreDeReherche				= 0;
-    int vdeYBarreDeReherche				= 35;
-
-    int vdeXLabelBoutonChoisi			= 0;
-    int vdeYLabelBoutonChoisi			= vdeHauteurVue/2;
-    int vdeLargeurLabelBoutonChoisi 	= vdeLargeurVue;
-
-    int vdeXBoutonAffichageScope		= 0;
-    int vdeYBoutonAffichageScope		= vdeHauteurVue-20;
-    int vdeLargeurBoutonAffichageScope	= vdeLargeurVue;
-    
-    
-    // placement des subviews
-    //--------------------------------------------------------------------------------------------------------
-    
-    [vdeBarreDeRecherche		setFrame:CGRectMake(vdeXBarreDeReherche,
-													vdeYBarreDeReherche,
-													vdeLargeurBarreDeReherche,
-													vdeHauteurBarreDeRecherche)];
-    
-    [vdeBoutonAffichageScope	setFrame:CGRectMake(vdeXBoutonAffichageScope,
-													vdeYBoutonAffichageScope,
-													vdeLargeurBoutonAffichageScope,
-													30)];
-	
-	[vdeLabeBoutonChoisi	    setFrame:CGRectMake(vdeXLabelBoutonChoisi,
-													vdeYLabelBoutonChoisi,
-													vdeLargeurLabelBoutonChoisi,
-													30)];
-    
-    
-}
 
 
     
