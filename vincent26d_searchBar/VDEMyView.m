@@ -114,17 +114,20 @@
 		vdeHauteurBarreDeRecherche = 30;
 	}
 	
+	int vdeHauteurLabeBoutonChoisi		= 30;
+	int vdeHauteurBoutonAffichageScope	= 30;
+	
 	int vdeLargeurBarreDeReherche		= vdeLargeurVue;
     int vdeXBarreDeReherche				= 0;
     int vdeYBarreDeReherche				= 35;
 	
-    int vdeXLabelBoutonChoisi			= 0;
-    int vdeYLabelBoutonChoisi			= vdeHauteurVue/2;
-    int vdeLargeurLabelBoutonChoisi 	= vdeLargeurVue;
-	
     int vdeXBoutonAffichageScope		= 0;
     int vdeYBoutonAffichageScope		= vdeHauteurVue-100;
     int vdeLargeurBoutonAffichageScope	= vdeLargeurVue;
+	
+    int vdeXLabelBoutonChoisi			= 0;
+    int vdeYLabelBoutonChoisi			= (vdeYBoutonAffichageScope)/2 +vdeHauteurLabeBoutonChoisi/2; // centrage label
+    int vdeLargeurLabelBoutonChoisi 	= vdeLargeurVue;
     
     
     // placement des subviews
@@ -138,12 +141,12 @@
     [vdeBoutonAffichageScope	setFrame:CGRectMake(vdeXBoutonAffichageScope,
 													vdeYBoutonAffichageScope,
 													vdeLargeurBoutonAffichageScope,
-													30)];
+													vdeHauteurBoutonAffichageScope)];
 	
 	[vdeLabeBoutonChoisi	    setFrame:CGRectMake(vdeXLabelBoutonChoisi,
 													vdeYLabelBoutonChoisi,
 													vdeLargeurLabelBoutonChoisi,
-													30)];
+													vdeHauteurLabeBoutonChoisi)];
     
     
 }
