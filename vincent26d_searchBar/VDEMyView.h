@@ -13,10 +13,11 @@
 	
 	UISearchBar         *vdeBarreDeRecherche;
 	UILabel             *vdeLabeBoutonChoisi;
-	UIButton			*vdeBoutonMiseAJour;
+	UIButton			*vdeBoutonAffichageScope;
 	UIImageView         *vdeImageEspace;
 	int					vdeHauteurScopeBar;
 	CGRect				vdeMaFrame;
 }
+- (void) setFromOrientation:(UIInterfaceOrientation) o;
 
 @end

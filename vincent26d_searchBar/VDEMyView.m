@@ -36,18 +36,29 @@
 	vdeBarreDeRecherche.showsCancelButton	= YES;
 	vdeBarreDeRecherche.delegate			= self;
     [self addSubview:vdeBarreDeRecherche];
+	
+	
     
+	// configuration du label
+	//--------------------------------------------------------------------------------------------------------
+	vdeLabeBoutonChoisi = [[UILabel alloc ]init];
+	vdeLabeBoutonChoisi.TextAlignment= NSTextAlignmentCenter;
+	vdeLabeBoutonChoisi.text = @"attente des choix...";
+	[self addSubview:vdeLabeBoutonChoisi];
+	
 	//configuration bouton
     //--------------------------------------------------------------------------------------------------------
-	vdeBoutonMiseAJour = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-	[vdeBoutonMiseAJour setTitle:@"Mise à jour" forState:UIControlStateNormal];
-	[vdeBoutonMiseAJour addTarget:self action:@selector(vdeActionMiseAJour) forControlEvents:UIControlEventTouchDown];
-	[self addSubview:vdeBoutonMiseAJour];
+	vdeBoutonAffichageScope = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+	[vdeBoutonAffichageScope setTitle:@"Mise à jour" forState:UIControlStateNormal];
+	[vdeBoutonAffichageScope addTarget:self action:@selector(vdeActionMiseAJour) forControlEvents:UIControlEventTouchDown];
+	[self addSubview:vdeBoutonAffichageScope];
 	
 	
     // positionnement des frames
     //--------------------------------------------------------------------------------------------------------
-    //[self vdeAffichageEcran];
+    [self setFromOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+	// on recupere l'orientation de la status bar pour connaitre l'orientation ( astuce UPMC )
+
     
     
     return self;
@@ -66,8 +77,7 @@
 		vdeBarreDeRecherche.scopeButtonTitles	= @[@"Choix 1", @"Choix 2",@"Choix 3"];
 		vdeBarreDeRecherche.showsScopeBar		= YES;
 	}
-	
-	[self setFromOrientation:[[UIApplication sharedApplication] statusBarOrientation]]; // on recupere l'orientation de ls status bar pour connaitre l'orientation ( astuce UPMC )
+
 }
 
 
@@ -135,51 +145,47 @@
 //--------------------------------------------------------------------------------------------------------
 
     CGRect screenRect = [[UIScreen mainScreen] bounds];
+	
+	int vdeLargeurVue, vdeHauteurVue ;
     
+	
 	
     if (o == UIInterfaceOrientationLandscapeLeft || o==UIInterfaceOrientationLandscapeRight)
     {
-        self.frame = CGRectMake(screenRect.origin.x, screenRect.origin.y, screenRect.size.height, screenRect.size.width);
+		self.frame = CGRectMake(screenRect.origin.x, screenRect.origin.y, screenRect.size.height, screenRect.size.width);
 
     }else{
-        NSLog(@"je suis en mode vertical");
-        self.frame = CGRectMake(screenRect.origin.x, screenRect.origin.y, screenRect.size.width, screenRect.size.height);
-    }
-    [self affichageEcran];
-    
-}
+		self.frame = CGRectMake(screenRect.origin.x, screenRect.origin.y, screenRect.size.width, screenRect.size.height);
 
--(void) affichageEcran {
+    }
+	
+	vdeLargeurVue = [self bounds].size.width;
+	vdeHauteurVue = [self bounds].size.height;
+
 	//--------------------------------------------------------------------------------------------------------
 
 
+	int vdeLargeurBarreDeReherche		= vdeLargeurVue;
+    int vdeXBarreDeReherche				= 0;
+    int vdeYBarreDeReherche				= 35;
 
-
-	int vdeLargeurVue = [self bounds].size.width;
-	int vdeHauteurVue = [self bounds].size.height;
-
-	int vdeLargeurBarreDeReherche  = vdeLargeurVue;
-    int vdeXBarreDeReherche        = 0;
-    int vdeYBarreDeReherche        = 0;
-
-    
     int vdeXLabelBoutonChoisi			= 0;
-    int vdeYLabelBoutonChoisi			= vdeHauteurVue/2;
-    int vdeLargeurLabelBoutonChoisi 	= vdeLargeurVue/2;
+    int vdeYLabelBoutonChoisi			= vdeHauteurVue/3;
+    int vdeLargeurLabelBoutonChoisi 	= vdeLargeurVue;
 
-    int vdeXBoutonMiseAJour			= 0;
-    int vdeYBoutonMiseAJour			= vdeHauteurVue/2+20;
-    int vdeLargeurBoutonMiseAJour	= vdeLargeurVue;
+    int vdeXBoutonAffichageScope		= 0;
+    int vdeYBoutonAffichageScope		= vdeHauteurVue/2+20;
+    int vdeLargeurBoutonAffichageScope	= vdeLargeurVue;
     
     
     // placement des subviews
     //--------------------------------------------------------------------------------------------------------
     
-    [vdeBarreDeRecherche         setFrame:CGRectMake(vdeXBarreDeReherche, vdeYBarreDeReherche, vdeLargeurBarreDeReherche, 30)];
+    [vdeBarreDeRecherche		setFrame:CGRectMake(vdeXBarreDeReherche, vdeYBarreDeReherche, vdeLargeurBarreDeReherche, 30)];
     
-    [vdeBoutonMiseAJour setFrame:CGRectMake(vdeXBoutonMiseAJour, vdeYBoutonMiseAJour, vdeLargeurBoutonMiseAJour, 30)];
+    [vdeBoutonAffichageScope	setFrame:CGRectMake(vdeXBoutonAffichageScope, vdeYBoutonAffichageScope, vdeLargeurBoutonAffichageScope, 30)];
 	
-	[vdeLabeBoutonChoisi setFrame:CGRectMake(vdeXLabelBoutonChoisi, vdeYLabelBoutonChoisi, vdeLargeurLabelBoutonChoisi, 30)];
+	[vdeLabeBoutonChoisi	    setFrame:CGRectMake(vdeXLabelBoutonChoisi, vdeYLabelBoutonChoisi, vdeLargeurLabelBoutonChoisi, 30)];
     
     
 }
