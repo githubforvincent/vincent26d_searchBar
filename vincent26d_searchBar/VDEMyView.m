@@ -66,67 +66,125 @@
 		vdeBarreDeRecherche.scopeButtonTitles	= @[@"Choix 1", @"Choix 2",@"Choix 3"];
 		vdeBarreDeRecherche.showsScopeBar		= YES;
 	}
+	
+	[self setFromOrientation:[[UIApplication sharedApplication] statusBarOrientation]]; // on recupere l'orientation de ls status bar pour connaitre l'orientation ( astuce UPMC )
 }
 
-/*
 
-		int vdeEspacement;            // espacement vertical entre les éléments, calculé plus bas
-		int vdeHauteurElement   = 30; // hauteur standard pour tous les éléments;
-		int vdeMargeHaut        = 30; // marge haut des premiers élements
-		int vdeMargeLaterale    = 20;
-		int vdeOffsetEcartement = 20; // pour ajuster l'espace entre les segmented control
+-(void) searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope {
+//--------------------------------------------------------------------------------------------------------
+	
+	vdeLabeBoutonChoisi.text =   [NSString stringWithFormat:@"Le bouton %@ a été choisi", [[searchBar scopeButtonTitles] objectAtIndex:selectedScope]];
+	
+}
+
+-(BOOL) searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+//--------------------------------------------------------------------------------------------------------
+	if( [text isEqualToString:@"\n"]) {
+		[searchBar resignFirstResponder]; // to remove the keyboard
+		return NO;
+	}
+	
+	return YES;
+}
+
+-(void) searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+//--------------------------------------------------------------------------------------------------------
+	vdeLabeBoutonChoisi.text = @"Le texte a changé";
+	
+}
+
+-(void) searchBarBookmarkButtonClicked:(UISearchBar *)searchBar {
+//--------------------------------------------------------------------------------------------------------
+
+	vdeLabeBoutonChoisi.text = @"Bouton bookmark choisi";
+	UIActionSheet * vdeActionSheet = [[UIActionSheet alloc]
+									  initWithTitle:@"Bookmark" delegate:self
+									  cancelButtonTitle:@"Annuler"
+									  destructiveButtonTitle:@"Rechercher quelque chose"
+									  otherButtonTitles:@"Rechercher mon nom", nil];
+	
+	[vdeActionSheet showInView:self];
+}
+
+-(void) searchBarCancelButtonClicked:(UISearchBar *) searchBar {
+//--------------------------------------------------------------------------------------------------------
+	vdeLabeBoutonChoisi.text = @"Annulation choisi";
+	[vdeBarreDeRecherche resignFirstResponder];
+	
+}
+
+-(void) searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+	//--------------------------------------------------------------------------------------------------------
+	vdeLabeBoutonChoisi.text = @"Rechercher choisi";
+	[vdeBarreDeRecherche resignFirstResponder];
+	
+}
+
+-(BOOL) searchBarShouldBeginEditing:(UISearchBar *)searchBar {
+	//--------------------------------------------------------------------------------------------------------
+	return YES;
+}
+
+-(BOOL) searchBarShouldEndEditing:(UISearchBar *)searchBar {
+	//--------------------------------------------------------------------------------------------------------
+	return YES;
+}
+
+- (void) setFromOrientation:(UIInterfaceOrientation) o {
+//--------------------------------------------------------------------------------------------------------
+
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    
+	
+    if (o == UIInterfaceOrientationLandscapeLeft || o==UIInterfaceOrientationLandscapeRight)
+    {
+        self.frame = CGRectMake(screenRect.origin.x, screenRect.origin.y, screenRect.size.height, screenRect.size.width);
+
+    }else{
+        NSLog(@"je suis en mode vertical");
+        self.frame = CGRectMake(screenRect.origin.x, screenRect.origin.y, screenRect.size.width, screenRect.size.height);
+    }
+    [self affichageEcran];
+    
+}
+
+-(void) affichageEcran {
+	//--------------------------------------------------------------------------------------------------------
 
 
-		int vdeLargeurVue = [self bounds].size.width;
-		int vdeHauteurVue = [self bounds].size.height;
 
 
+	int vdeLargeurVue = [self bounds].size.width;
+	int vdeHauteurVue = [self bounds].size.height;
 
-	 int vdeLargeurSearchBar     = 100;
-    int vdeXstepper             = vdeMargeLaterale;
-    int vdeYStepper             = vdeMargeHaut;
+	int vdeLargeurBarreDeReherche  = vdeLargeurVue;
+    int vdeXBarreDeReherche        = 0;
+    int vdeYBarreDeReherche        = 0;
 
     
-    int vdeLargeurSwitchGeek    = 50;
-    int vdeXSwitchGeek          = vdeLargeurVue-vdeMargeLaterale-vdeLargeurSwitchGeek;
-    int vdeYSwitchGeek          = vdeMargeHaut;
-    
-    int vdeXLabelDizaines       = vdeMargeLaterale;
-    int vdeYLabelDizaines       = vdeYSegmentDizaines-vdeHauteurElement+5; // +5 pour rapprocher le label du segment
-    int vdeLargeurLabelDizaines = vdeLargeurVue/2;
+    int vdeXLabelBoutonChoisi			= 0;
+    int vdeYLabelBoutonChoisi			= vdeHauteurVue/2;
+    int vdeLargeurLabelBoutonChoisi 	= vdeLargeurVue/2;
 
-    int vdeXBoutonReset         = vdeLargeurVue/3;
-    int vdeYBoutonReset         = vdeMargeHaut+(vdeHauteurElement/2)+(5*vdeEspacement);
-    int vdeLargeurBoutonReset   = vdeLargeurVue/3; // 1/3 de la largeur... pourquoi pas..
+    int vdeXBoutonMiseAJour			= 0;
+    int vdeYBoutonMiseAJour			= vdeHauteurVue/2+20;
+    int vdeLargeurBoutonMiseAJour	= vdeLargeurVue;
     
     
     // placement des subviews
     //--------------------------------------------------------------------------------------------------------
     
-    [vdeStepper         setFrame:CGRectMake(vdeXstepper, vdeYStepper, vdeLargeurStepper, vdeHauteurElement)];
+    [vdeBarreDeRecherche         setFrame:CGRectMake(vdeXBarreDeReherche, vdeYBarreDeReherche, vdeLargeurBarreDeReherche, 30)];
     
-    [vdeLabelModeGeek   setFrame:CGRectMake(vdeXLabelModeGeek, vdeYLabelModeGeek, vdeLargeurLabelModeGeek, vdeHauteurElement)];
-    [vdeSwitchModeGeek  setFrame:CGRectMake(vdeXSwitchGeek, vdeYSwitchGeek, vdeLargeurSwitchGeek, vdeHauteurElement)];
-    
-    [vdeLabelDizaines   setFrame:CGRectMake(vdeXLabelDizaines, vdeYLabelDizaines, vdeLargeurLabelDizaines, vdeHauteurElement)];
-    [vdeSegmentDizaines setFrame:CGRectMake(vdeXSegmentDizaines,vdeYSegmentDizaines, vdeLargeurSegmentDizaines, vdeHauteurElement)];
-    
-    [vdeLabelUnites     setFrame:CGRectMake(vdeXLabelUnites, vdeYLabelUnites, vdeLargeurLabelUnites, vdeHauteurElement)];
-    [vdeSegmentUnites   setFrame:CGRectMake(vdeXSegmentUnites, vdeYSegmentUnites, vdeLargeurSegmentUnites, vdeHauteurElement)];
-    
-    [vdeLabelValeur     setFrame:CGRectMake(vdeXLabelValeur, vdeYlabelValeur, vdeLargeurLabelValeur, vdeHauteurElement)];
-    
-    [vdeSlider          setFrame:CGRectMake(vdeXSlider, vdeYSlider, vdeLargeurSlider, vdeHauteurElement)];
-    
-    [vdeBoutonReset     setFrame:CGRectMake(vdeXBoutonReset, vdeYBoutonReset, vdeLargeurBoutonReset, vdeHauteurElement)];
+    [vdeBoutonMiseAJour setFrame:CGRectMake(vdeXBoutonMiseAJour, vdeYBoutonMiseAJour, vdeLargeurBoutonMiseAJour, 30)];
+	
+	[vdeLabeBoutonChoisi setFrame:CGRectMake(vdeXLabelBoutonChoisi, vdeYLabelBoutonChoisi, vdeLargeurLabelBoutonChoisi, 30)];
     
     
 }
 
 
-
-	[self vdeMiseAJourAffichage];
-*/
     
 
 
