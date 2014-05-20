@@ -14,20 +14,20 @@
 @implementation VDEMyView
 
 
-
+-(void) setVdeHauteurScopeBar:(int)vdeHauteurScopeBar {
 //--------------------------------------------------------------------------------------------------------
+
+	_vdeHauteurScopeBar = vdeHauteurScopeBar;
+	NSLog(@"test 3");
+	[self vdeSetFromOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+}
+
+
 -(id) initWithFrame:(CGRect)frame {
 //--------------------------------------------------------------------------------------------------------
     
     self= [super initWithFrame:frame ];
 	   
-    
-    //configuration subview du fond
-    //--------------------------------------------------------------------------------------------------------
-    //vdeImageEspace = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"image2048_2048.png"]];
-    //vdeImageEspace = [[UIImageView alloc] init];
-    //[self addSubview:vdeImageEspace];
-	
     
     //configuration barre de recherche
     //--------------------------------------------------------------------------------------------------------
@@ -57,7 +57,7 @@
 	
     // positionnement des frames
     //--------------------------------------------------------------------------------------------------------
-    [self setFromOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+    [self vdeSetFromOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
 	// on recupere l'orientation de la status bar pour connaitre l'orientation ( astuce UPMC )
 
     
@@ -69,25 +69,24 @@
 //--------------------------------------------------------------------------------------------------------
 
 	if( vdeBarreDeRecherche.showsScopeBar){
-		vdeHauteurScopeBar						= 0;
-		vdeBarreDeRecherche.scopeButtonTitles	= nil;
-		vdeBarreDeRecherche.showsScopeBar		= NO;
+		vdeBarreDeRecherche.scopeButtonTitles		= nil;
+		vdeBarreDeRecherche.showsScopeBar			= NO;
+		self.vdeHauteurScopeBar						= 0;
 		
 	}else {
-		vdeHauteurScopeBar						= 45;
-		vdeBarreDeRecherche.scopeButtonTitles	= @[@"Choix 1", @"Choix 2",@"Choix 3"];
-		vdeBarreDeRecherche.showsScopeBar		= YES;
+		vdeBarreDeRecherche.scopeButtonTitles		= @[@"Choix 1", @"Choix 2",@"Choix 3"];
+		vdeBarreDeRecherche.showsScopeBar			= YES;
+		self.vdeHauteurScopeBar						= 45;
 	}
 
-	[self setFromOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+	// j'ai redéfini le setter de vdeHauteurScopeBar : chaque fois que cette valeur change, je refais u affichage
 
 }
 
-- (void) setFromOrientation:(UIInterfaceOrientation) o {
+- (void) vdeSetFromOrientation:(UIInterfaceOrientation) o {
 	//--------------------------------------------------------------------------------------------------------
 	
-    
-	
+
 	// rafraichissement de la frame en fonction de l'orientation
 	//--------------------------------------------------------------------------------------------------------
 	
@@ -110,24 +109,25 @@
 	
 	if (vdeBarreDeRecherche.showsScopeBar) {
 		vdeHauteurBarreDeRecherche = 80;
+		NSLog(@"test 80");
 	} else {
 		vdeHauteurBarreDeRecherche = 30;
+		NSLog(@"test 30");
 	}
-	
-	int vdeHauteurLabeBoutonChoisi		= 30;
-	int vdeHauteurBoutonAffichageScope	= 30;
-	
 	int vdeLargeurBarreDeReherche		= vdeLargeurVue;
     int vdeXBarreDeReherche				= 0;
     int vdeYBarreDeReherche				= 35;
 	
-    int vdeXBoutonAffichageScope		= 0;
+    int vdeHauteurBoutonAffichageScope	= 30;
+	int vdeXBoutonAffichageScope		= 0;
     int vdeYBoutonAffichageScope		= vdeHauteurVue-100;
     int vdeLargeurBoutonAffichageScope	= vdeLargeurVue;
 	
-    int vdeXLabelBoutonChoisi			= 0;
+	int vdeHauteurLabeBoutonChoisi		= 30;
+	int vdeXLabelBoutonChoisi			= 0;
     int vdeYLabelBoutonChoisi			= (vdeYBoutonAffichageScope)/2 +vdeHauteurLabeBoutonChoisi/2; // centrage label
     int vdeLargeurLabelBoutonChoisi 	= vdeLargeurVue;
+
     
     
     // placement des subviews

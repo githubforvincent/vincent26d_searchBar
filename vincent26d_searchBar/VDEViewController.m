@@ -25,7 +25,7 @@
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)o duration:(NSTimeInterval)d
 //--------------------------------------------------------------------------------------------------------
 {
-    [vue setFromOrientation:o];
+    [vue vdeSetFromOrientation:o];
     
 }
 - (void)viewDidLoad {

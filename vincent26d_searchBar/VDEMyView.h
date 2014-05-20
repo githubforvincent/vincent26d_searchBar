@@ -15,9 +15,11 @@
 	UILabel             *vdeLabeBoutonChoisi;
 	UIButton			*vdeBoutonAffichageScope;
 	UIImageView         *vdeImageEspace;
-	int					vdeHauteurScopeBar;
 	CGRect				vdeMaFrame;
 }
-- (void) setFromOrientation:(UIInterfaceOrientation) o;
+
+@property (nonatomic) int vdeHauteurScopeBar;
+
+- (void) vdeSetFromOrientation:(UIInterfaceOrientation) o;
 
 @end
