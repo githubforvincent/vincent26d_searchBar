@@ -22,6 +22,8 @@
 		12E86C8D192BD7CE00100980 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12E86C6C192BD7CD00100980 /* UIKit.framework */; };
 		12E86C95192BD7CE00100980 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 12E86C93192BD7CE00100980 /* InfoPlist.strings */; };
 		12E86C97192BD7CE00100980 /* vincent26d_searchBarTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E86C96192BD7CE00100980 /* vincent26d_searchBarTests.m */; };
+		12E86CA2192BD80500100980 /* VDEMyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E86CA1192BD80500100980 /* VDEMyView.m */; };
+		12E86CA4192BDBDE00100980 /* image2048_2048.png in Resources */ = {isa = PBXBuildFile; fileRef = 12E86CA3192BDBDE00100980 /* image2048_2048.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,9 @@
 		12E86C92192BD7CE00100980 /* vincent26d_searchBarTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "vincent26d_searchBarTests-Info.plist"; sourceTree = "<group>"; };
 		12E86C94192BD7CE00100980 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		12E86C96192BD7CE00100980 /* vincent26d_searchBarTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = vincent26d_searchBarTests.m; sourceTree = "<group>"; };
+		12E86CA0192BD80500100980 /* VDEMyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VDEMyView.h; sourceTree = "<group>"; };
+		12E86CA1192BD80500100980 /* VDEMyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VDEMyView.m; sourceTree = "<group>"; };
+		12E86CA3192BDBDE00100980 /* image2048_2048.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image2048_2048.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +125,9 @@
 				12E86C7D192BD7CD00100980 /* Main_iPad.storyboard */,
 				12E86C80192BD7CD00100980 /* VDEViewController.h */,
 				12E86C81192BD7CD00100980 /* VDEViewController.m */,
+				12E86CA0192BD80500100980 /* VDEMyView.h */,
+				12E86CA1192BD80500100980 /* VDEMyView.m */,
+				12E86CA3192BDBDE00100980 /* image2048_2048.png */,
 				12E86C83192BD7CD00100980 /* Images.xcassets */,
 				12E86C6F192BD7CD00100980 /* Supporting Files */,
 			);
@@ -233,6 +241,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				12E86C7F192BD7CD00100980 /* Main_iPad.storyboard in Resources */,
+				12E86CA4192BDBDE00100980 /* image2048_2048.png in Resources */,
 				12E86C84192BD7CD00100980 /* Images.xcassets in Resources */,
 				12E86C7C192BD7CD00100980 /* Main_iPhone.storyboard in Resources */,
 				12E86C73192BD7CD00100980 /* InfoPlist.strings in Resources */,
@@ -256,6 +265,7 @@
 			files = (
 				12E86C79192BD7CD00100980 /* VDEAppDelegate.m in Sources */,
 				12E86C75192BD7CD00100980 /* main.m in Sources */,
+				12E86CA2192BD80500100980 /* VDEMyView.m in Sources */,
 				12E86C82192BD7CD00100980 /* VDEViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

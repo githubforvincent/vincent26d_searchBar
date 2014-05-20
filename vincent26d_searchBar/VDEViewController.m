@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Utilisation. All rights reserved.
 //
 
+
 #import "VDEViewController.h"
 
 @interface VDEViewController ()
@@ -14,16 +15,30 @@
 
 @implementation VDEViewController
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+//--------------------------------------------------------------------------------------------------------
+-(BOOL) shouldAutorotate {
+    //--------------------------------------------------------------------------------------------------------
+    return YES;
 }
 
-- (void)didReceiveMemoryWarning
-{
+
+//--------------------------------------------------------------------------------------------------------
+
+- (void)viewDidLoad {
+    //--------------------------------------------------------------------------------------------------------
+    
+    [super viewDidLoad];
+    vue = [[VDEMyView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [[self view] addSubview:vue];}
+
+//--------------------------------------------------------------------------------------------------------
+- (void)didReceiveMemoryWarning {
+    //--------------------------------------------------------------------------------------------------------
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    NSLog(@"Alerte mémoire");
+    
+    
 }
 
 @end
+
