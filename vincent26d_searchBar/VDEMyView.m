@@ -49,8 +49,8 @@
 	//configuration bouton
     //--------------------------------------------------------------------------------------------------------
 	vdeBoutonAffichageScope = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-	[vdeBoutonAffichageScope setTitle:@"Mise à jour" forState:UIControlStateNormal];
-	[vdeBoutonAffichageScope addTarget:self action:@selector(vdeActionMiseAJour) forControlEvents:UIControlEventTouchDown];
+	[vdeBoutonAffichageScope setTitle:@"Toggle la scopeBar" forState:UIControlStateNormal];
+	[vdeBoutonAffichageScope addTarget:self action:@selector(vdeActionVisualisationScopeBar ) forControlEvents:UIControlEventTouchDown];
 	[self addSubview:vdeBoutonAffichageScope];
 	
 	
@@ -64,7 +64,7 @@
     return self;
 }
 
--(void) vdeActionMiseAJour {
+-(void) vdeActionVisualisationScopeBar {
 //--------------------------------------------------------------------------------------------------------
 
 	if( vdeBarreDeRecherche.showsScopeBar){
@@ -77,6 +77,8 @@
 		vdeBarreDeRecherche.scopeButtonTitles	= @[@"Choix 1", @"Choix 2",@"Choix 3"];
 		vdeBarreDeRecherche.showsScopeBar		= YES;
 	}
+
+	[self setFromOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
 
 }
 
@@ -146,7 +148,7 @@
 
     CGRect screenRect = [[UIScreen mainScreen] bounds];
 	
-	int vdeLargeurVue, vdeHauteurVue ;
+	int vdeLargeurVue, vdeHauteurVue, vdeHauteurBarreDeRecherche ;
     
 	
 	
@@ -159,10 +161,15 @@
 
     }
 	
+	//--------------------------------------------------------------------------------------------------------
+
 	vdeLargeurVue = [self bounds].size.width;
 	vdeHauteurVue = [self bounds].size.height;
-
-	//--------------------------------------------------------------------------------------------------------
+	if (vdeBarreDeRecherche.showsScopeBar) {
+		vdeHauteurBarreDeRecherche = 80;
+	} else {
+		vdeHauteurBarreDeRecherche = 30;
+	}
 
 
 	int vdeLargeurBarreDeReherche		= vdeLargeurVue;
@@ -170,18 +177,19 @@
     int vdeYBarreDeReherche				= 35;
 
     int vdeXLabelBoutonChoisi			= 0;
-    int vdeYLabelBoutonChoisi			= vdeHauteurVue/3;
+    int vdeYLabelBoutonChoisi			= vdeHauteurVue/2;
     int vdeLargeurLabelBoutonChoisi 	= vdeLargeurVue;
 
     int vdeXBoutonAffichageScope		= 0;
-    int vdeYBoutonAffichageScope		= vdeHauteurVue/2+20;
+    int vdeYBoutonAffichageScope		= vdeHauteurVue-20;
     int vdeLargeurBoutonAffichageScope	= vdeLargeurVue;
     
     
     // placement des subviews
     //--------------------------------------------------------------------------------------------------------
     
-    [vdeBarreDeRecherche		setFrame:CGRectMake(vdeXBarreDeReherche, vdeYBarreDeReherche, vdeLargeurBarreDeReherche, 30)];
+    [vdeBarreDeRecherche		setFrame:CGRectMake(vdeXBarreDeReherche, vdeYBarreDeReherche, vdeLargeurBarreDeReherche, vdeHauteurBarreDeRecherche)];
+	NSLog(@"%d", vdeHauteurBarreDeRecherche);
     
     [vdeBoutonAffichageScope	setFrame:CGRectMake(vdeXBoutonAffichageScope, vdeYBoutonAffichageScope, vdeLargeurBoutonAffichageScope, 30)];
 	
